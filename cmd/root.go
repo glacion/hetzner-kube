@@ -11,7 +11,7 @@ import (
 )
 
 var cfgFile string
-var DebugMode bool
+var debugMode bool
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -22,11 +22,11 @@ var rootCmd = &cobra.Command{
 	`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		pkg.RenderProgressBars = false
-		if DebugMode {
+		if debugMode {
 			fmt.Println("Running in Debug Mode!")
 			pkg.RenderProgressBars = true
 		}
-		AppConf = NewAppConfig(DebugMode)
+		AppConf = NewAppConfig(debugMode)
 	},
 }
 
@@ -43,7 +43,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file to use")
-	rootCmd.PersistentFlags().BoolVarP(&DebugMode, "debug", "d", false, "debug mode")
+	rootCmd.PersistentFlags().BoolVarP(&debugMode, "debug", "d", false, "debug mode")
 
 }
 
